@@ -5,6 +5,7 @@ tag: "news"
 tagName: "新聞"
 date: "2025-12-18"
 author: "玩報編輯部"
+image: "/images/wanbao-cover.jpg"
 ---
 
 你好！歡迎來到玩報。
