@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string;
+  tag: 'news' | 'guide' | 'vtuber' | 'review';
+  tagName: string;
+  date: string;
+  author?: string;
+  slug: string;
+  image?: string;
+}
+
+const { title, tag, tagName, date, author = '玩報編輯部', slug, image } = Astro.props;
+---
+
+<article class="article-card">
+  {image ? (
+    <img src={image} alt={title} class="article-card__image" />
+  ) : (
+    <div class="article-card__image"></div>
+  )}
+  <div class="article-card__content">
+    <span class={`article-card__tag tag-${tag}`}>{tagName}</span>
+    <h3 class="article-card__title">
+      <a href={`/articles/${slug}`}>{title}</a>
+    </h3>
+    <p class="article-card__meta">{date} | {author}</p>
+  </div>
+</article>

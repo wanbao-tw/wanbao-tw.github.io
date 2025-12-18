@@ -1,0 +1,51 @@
+---
+/**
+ * 廣告側邊欄元件
+ * 
+ * 使用方式：
+ * <AdSidebar position="left" />
+ * <AdSidebar position="right" />
+ * 
+ * 放入真正廣告：
+ * 1. 申請 Google AdSense 後，把廣告代碼貼在下面
+ * 2. 或者直接放圖片廣告：<img src="/images/ads/your-ad.jpg" />
+ */
+
+interface Props {
+  position?: 'left' | 'right';
+}
+
+const { position = 'left' } = Astro.props;
+---
+
+<aside class={`ad-sidebar ad-sidebar--${position}`}>
+  <!-- 廣告位 1：160x600 -->
+  <div class="ad-slot">
+    <span class="ad-slot__label">廣告</span>
+    <p>160 × 600</p>
+    <p style="font-size: 0.75rem; margin-top: 0.5rem;">
+      廣告位招租<br/>
+      <a href="mailto:contact@wanbao.tw">聯絡我們</a>
+    </p>
+    <!-- 
+    放入 Google AdSense 代碼：
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:160px;height:600px"
+         data-ad-client="ca-pub-XXXXXXX"
+         data-ad-slot="XXXXXXX"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
+  </div>
+
+  <!-- 廣告位 2：160x250（較小） -->
+  <div class="ad-slot ad-slot--small">
+    <span class="ad-slot__label">廣告</span>
+    <p>160 × 250</p>
+    <!-- 
+    或放圖片廣告：
+    <a href="https://廣告連結" target="_blank">
+      <img src="/images/ads/ad-160x250.jpg" alt="廣告" />
+    </a>
+    -->
+  </div>
+</aside>

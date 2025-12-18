@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await article.render();
+---
+
+<BaseLayout title={article.data.title} description={article.data.description}>
+  <article class="article-page">
+    <header class="article-header">
+      <span class={`article-card__tag tag-${article.data.tag}`}>{article.data.tagName}</span>
+      <h1>{article.data.title}</h1>
+      <p class="article-meta">
+        📅 {article.data.date} | ✍️ {article.data.author}
+      </p>
+    </header>
+
+    {article.data.image && (
+      <img src={article.data.image} alt={article.data.title} class="article-cover" />
+    )}
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="/" class="btn btn-primary">← 返回首頁</a>
+    </div>
+  </article>
+</BaseLayout>
