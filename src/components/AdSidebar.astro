@@ -1,14 +1,8 @@
 ---
 /**
  * 廣告側邊欄元件
- * 
- * 使用方式：
- * <AdSidebar position="left" />
- * <AdSidebar position="right" />
- * 
- * 放入真正廣告：
- * 1. 申請 Google AdSense 後，把廣告代碼貼在下面
- * 2. 或者直接放圖片廣告：<img src="/images/ads/your-ad.jpg" />
+ * 左邊：Google Ad + 靛之森
+ * 右邊：Google Ad + Google Ad
  */
 
 interface Props {
@@ -19,7 +13,7 @@ const { position = 'left' } = Astro.props;
 ---
 
 <aside class={`ad-sidebar ad-sidebar--${position}`}>
-  <!-- 廣告位 1：160x600 -->
+  <!-- 廣告位 1：160x600 (Google AdSense) -->
   <div class="ad-slot">
     <span class="ad-slot__label">廣告</span>
     <p>160 × 600</p>
@@ -28,24 +22,65 @@ const { position = 'left' } = Astro.props;
       <a href="mailto:contact@wanbao.tw">聯絡我們</a>
     </p>
     <!-- 
-    放入 Google AdSense 代碼：
+    AdSense 審核通過後，替換成：
     <ins class="adsbygoogle"
          style="display:inline-block;width:160px;height:600px"
-         data-ad-client="ca-pub-XXXXXXX"
-         data-ad-slot="XXXXXXX"></ins>
+         data-ad-client="ca-pub-5723401280589646"
+         data-ad-slot="你的廣告單元ID"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     -->
   </div>
 
-  <!-- 廣告位 2：160x250（較小） -->
-  <div class="ad-slot ad-slot--small">
-    <span class="ad-slot__label">廣告</span>
-    <p>160 × 250</p>
-    <!-- 
-    或放圖片廣告：
-    <a href="https://廣告連結" target="_blank">
-      <img src="/images/ads/ad-160x250.jpg" alt="廣告" />
-    </a>
-    -->
-  </div>
+  <!-- 廣告位 2：160x250 -->
+  {position === 'left' ? (
+    <!-- 左邊下方：靛之森廣告 -->
+    <div class="ad-slot ad-slot--small ad-slot--ainomori">
+      <a href="https://ainomori.tw" target="_blank" rel="noopener" title="靛之森 Ainomori">
+        <img src="/images/ads/Ainomori.gif" alt="靛之森 Ainomori" />
+      </a>
+    </div>
+  ) : (
+    <!-- 右邊下方：Google AdSense -->
+    <div class="ad-slot ad-slot--small">
+      <span class="ad-slot__label">廣告</span>
+      <p>160 × 250</p>
+      <!-- 
+      AdSense 審核通過後，替換成：
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:160px;height:250px"
+           data-ad-client="ca-pub-5723401280589646"
+           data-ad-slot="你的廣告單元ID"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      -->
+    </div>
+  )}
 </aside>
+
+<style>
+  .ad-slot--ainomori {
+    padding: 0;
+    border: none;
+    background: transparent;
+    min-height: auto;
+  }
+  
+  .ad-slot--ainomori a {
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .ad-slot--ainomori a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  }
+  
+  .ad-slot--ainomori img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+</style>
