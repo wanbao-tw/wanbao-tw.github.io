@@ -29,6 +29,11 @@ author: "玩報編輯部"
 tag: "news"
 tagName: "新聞"
 
+# 額外分類（可選，讓文章出現在多個分類頁面）----
+# 例如 VTuber 專訪想同時出現在 VTuber 和新聞：
+# extraTags: ["vtuber", "news"]
+# extraTags:
+
 # 選填欄位 --------------------------------
 image: "/images/wanbao-cover.jpg"
 keywords:

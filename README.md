@@ -1,8 +1,31 @@
-# 🎮 玩報 WANBAO v1.2
+# 🎮 玩報 WANBAO v1.3
 
 專注遊戲攻略與 VTuber 資訊的獨立遊戲媒體
 
 網站：https://wanbao.tw
+
+---
+
+## ✨ v1.3 更新內容
+
+### 🔧 修正 publish.bat
+- 改用 `npx astro build` 解決 astro 命令找不到的問題
+- 自動檢查 node_modules 是否存在，不存在會自動執行 `npm install`
+- 新增錯誤提示和解決方案說明
+
+### 🔧 修正 publish-schedule.bat
+- 改用英文介面避免中文編碼問題
+- 同樣使用 npx 確保 astro 可執行
+- 簡化介面，提升穩定性
+
+### 📰 多分類功能
+- 新增 `extraTags` 欄位，讓同一篇文章可以出現在多個分類頁面
+- 例如：VTuber 專訪可以同時出現在「VTuber」和「新聞」分類
+- 使用方式：在文章 frontmatter 添加 `extraTags: ['vtuber', 'news']`
+
+### 📝 文章修正
+- 修正樂奈專訪日期為 2025-12-23
+- 專訪文章現在會同時出現在 VTuber 和新聞分類
 
 ---
 
