@@ -1,83 +1,149 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <!-- VTuber 紫色漸層背景 -->
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="50%" stop-color="#764ba2"/>
-      <stop offset="100%" stop-color="#f093fb"/>
+    <!-- 靛之森 - 上方天空漸層 -->
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="40%" stop-color="#1a3a5c"/>
+      <stop offset="70%" stop-color="#2d5a7b"/>
+      <stop offset="100%" stop-color="#1e3d59"/>
     </linearGradient>
     
-    <!-- 星星裝飾圖案 -->
-    <pattern id="stars" width="80" height="80" patternUnits="userSpaceOnUse">
-      <path d="M40 10 L43 25 L58 25 L46 35 L50 50 L40 40 L30 50 L34 35 L22 25 L37 25 Z" fill="#FFD93D" opacity="0.12" transform="scale(0.6) translate(25, 25)"/>
-    </pattern>
+    <!-- 裏之森 - 下方深淵漸層 -->
+    <linearGradient id="abyssGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e3d59"/>
+      <stop offset="30%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0f0f1a"/>
+    </linearGradient>
     
-    <!-- 陰影效果 -->
-    <filter id="shadow">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.4"/>
-    </filter>
+    <!-- 月光光暈 -->
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f4f1de" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#f4f1de" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#f4f1de" stop-opacity="0"/>
+    </radialGradient>
     
-    <!-- 發光效果 -->
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+    <!-- 聖樹光芒 -->
+    <linearGradient id="treeGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c9a959"/>
+      <stop offset="50%" stop-color="#8b7355"/>
+      <stop offset="100%" stop-color="#4a3f35"/>
+    </linearGradient>
+    
+    <!-- 文字光暈 -->
+    <filter id="textGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
       <feMerge>
-        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+    
+    <!-- 柔和陰影 -->
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
   </defs>
   
-  <!-- 背景 -->
-  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  <!-- 背景 - 上半天空 -->
+  <rect y="0" width="1200" height="315" fill="url(#skyGradient)"/>
   
-  <!-- 星星裝飾 -->
-  <rect width="1200" height="630" fill="url(#stars)"/>
+  <!-- 背景 - 下半深淵 -->
+  <rect y="315" width="1200" height="315" fill="url(#abyssGradient)"/>
   
-  <!-- 裝飾性圓形 -->
-  <circle cx="1100" cy="100" r="150" fill="#FFD93D" opacity="0.1"/>
-  <circle cx="100" cy="530" r="100" fill="#FFD93D" opacity="0.08"/>
+  <!-- 水平分界線 - 微光 -->
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="#f4f1de" stroke-width="1" opacity="0.3"/>
   
-  <!-- 左上角裝飾線 -->
-  <rect x="60" y="60" width="8" height="120" fill="#FFD93D"/>
-  <rect x="60" y="60" width="120" height="8" fill="#FFD93D"/>
-  
-  <!-- 右下角裝飾線 -->
-  <rect x="1132" y="450" width="8" height="120" fill="#FFD93D"/>
-  <rect x="1012" y="562" width="128" height="8" fill="#FFD93D"/>
-  
-  <!-- 專訪標籤 -->
-  <rect x="100" y="160" width="140" height="50" rx="25" fill="#FFD93D" filter="url(#shadow)"/>
-  <text x="170" y="193" font-family="Noto Sans TC, sans-serif" font-size="24" font-weight="700" fill="#333" text-anchor="middle">🎙️ 專訪</text>
-  
-  <!-- 主標題 -->
-  <text x="100" y="280" font-family="Noto Sans TC, sans-serif" font-size="52" font-weight="900" fill="#FFFFFF" filter="url(#shadow)">靛之森的另一面</text>
-  
-  <!-- 副標題 -->
-  <text x="100" y="350" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="400" fill="#FFFFFF" opacity="0.9">VTuber 鳥羽樂奈打造沉浸式互動體驗</text>
-  
-  <!-- 補充說明 -->
-  <rect x="100" y="390" width="320" height="40" rx="8" fill="#FFFFFF" opacity="0.15"/>
-  <text x="115" y="418" font-family="Noto Sans TC, sans-serif" font-size="20" fill="#FFFFFF" opacity="0.95">🎮 裏之森 Online 獨家幕後</text>
-  
-  <!-- VTuber 標記 -->
-  <rect x="100" y="450" width="200" height="36" rx="18" fill="#FFFFFF" opacity="0.2"/>
-  <text x="115" y="475" font-family="Noto Sans TC, sans-serif" font-size="18" fill="#FFFFFF">🦊 台灣 VTuber 專訪系列</text>
-  
-  <!-- 右側裝飾元素 - 森林/樹意象 -->
-  <g transform="translate(900, 200)" opacity="0.15">
-    <path d="M50 200 L100 50 L150 200 Z" fill="#FFFFFF"/>
-    <path d="M80 200 L130 80 L180 200 Z" fill="#FFFFFF"/>
-    <path d="M20 200 L70 100 L120 200 Z" fill="#FFFFFF"/>
-    <rect x="85" y="200" width="30" height="50" fill="#FFFFFF"/>
+  <!-- 遠景星空點綴 -->
+  <g opacity="0.6">
+    <circle cx="150" cy="80" r="1" fill="#f4f1de"/>
+    <circle cx="280" cy="120" r="1.5" fill="#f4f1de"/>
+    <circle cx="420" cy="60" r="1" fill="#f4f1de"/>
+    <circle cx="550" cy="140" r="1" fill="#f4f1de"/>
+    <circle cx="780" cy="90" r="1.5" fill="#f4f1de"/>
+    <circle cx="920" cy="130" r="1" fill="#f4f1de"/>
+    <circle cx="1050" cy="70" r="1" fill="#f4f1de"/>
+    <circle cx="200" cy="180" r="1" fill="#f4f1de"/>
+    <circle cx="350" cy="200" r="1" fill="#f4f1de"/>
+    <circle cx="680" cy="170" r="1" fill="#f4f1de"/>
   </g>
   
-  <!-- 月亮元素（代表裏之森的夜晚意象） -->
-  <circle cx="1050" cy="150" r="60" fill="#FFFFFF" opacity="0.1"/>
-  <circle cx="1070" cy="140" r="50" fill="url(#bgGradient)"/>
+  <!-- 月亮 - 右上 -->
+  <circle cx="1000" cy="120" r="80" fill="url(#moonGlow)" opacity="0.4"/>
+  <circle cx="1000" cy="120" r="45" fill="#f4f1de" opacity="0.95"/>
+  <circle cx="1020" cy="110" r="45" fill="url(#skyGradient)" opacity="0.3"/>
   
-  <!-- 玩報 Logo -->
-  <g transform="translate(1000, 540)">
-    <rect x="0" y="0" width="140" height="50" rx="8" fill="#FFFFFF" opacity="0.95"/>
-    <text x="70" y="35" font-family="Noto Sans TC, sans-serif" font-size="28" font-weight="900" fill="#764ba2" text-anchor="middle">玩報</text>
+  <!-- 聖樹泰坦 - 中央剪影 -->
+  <g transform="translate(850, 150)">
+    <!-- 樹幹 -->
+    <path d="M150 160 Q145 200 140 280 L160 280 Q155 200 150 160" fill="#1a1a2e" opacity="0.7"/>
+    
+    <!-- 上方樹冠（靛之森） -->
+    <ellipse cx="150" cy="120" rx="100" ry="70" fill="#1a3a5c" opacity="0.5"/>
+    <ellipse cx="150" cy="100" rx="80" ry="55" fill="#2d5a7b" opacity="0.4"/>
+    <ellipse cx="150" cy="85" rx="55" ry="40" fill="#3d7a9e" opacity="0.3"/>
+    
+    <!-- 下方根系倒影（裏之森） -->
+    <ellipse cx="150" cy="340" rx="90" ry="60" fill="#0f0f1a" opacity="0.6"/>
+    <ellipse cx="150" cy="360" rx="70" ry="45" fill="#1a1a2e" opacity="0.5"/>
+    <ellipse cx="150" cy="375" rx="45" ry="30" fill="#252540" opacity="0.4"/>
+    
+    <!-- 樹幹延伸到下方 -->
+    <path d="M140 280 Q135 320 130 400 M160 280 Q165 320 170 400" stroke="#1a1a2e" stroke-width="3" fill="none" opacity="0.5"/>
+  </g>
+  
+  <!-- 左側主要內容區 -->
+  
+  <!-- 專訪標籤 -->
+  <g transform="translate(80, 180)">
+    <rect x="0" y="0" width="100" height="36" rx="18" fill="#c9a959" opacity="0.9"/>
+    <text x="50" y="24" font-family="Noto Sans TC, sans-serif" font-size="16" font-weight="700" fill="#0a1628" text-anchor="middle">專訪</text>
+  </g>
+  
+  <!-- 主標題 -->
+  <text x="80" y="280" font-family="Noto Serif TC, serif" font-size="56" font-weight="900" fill="#f4f1de" filter="url(#textGlow)">靛之森的另一面</text>
+  
+  <!-- 副標題 -->
+  <text x="80" y="340" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="400" fill="#f4f1de" opacity="0.85">VTuber 鳥羽樂奈打造沉浸式互動體驗的幕後故事</text>
+  
+  <!-- 標籤群組 -->
+  <g transform="translate(80, 380)">
+    <!-- 裏之森標籤 -->
+    <rect x="0" y="0" width="160" height="32" rx="16" fill="#f4f1de" opacity="0.15"/>
+    <text x="16" y="22" font-family="Noto Sans TC, sans-serif" font-size="14" fill="#f4f1de" opacity="0.9">🌙 裏之森 Online</text>
+    
+    <!-- VTuber 標籤 -->
+    <rect x="175" y="0" width="130" height="32" rx="16" fill="#f4f1de" opacity="0.15"/>
+    <text x="191" y="22" font-family="Noto Sans TC, sans-serif" font-size="14" fill="#f4f1de" opacity="0.9">🦊 台灣 VTuber</text>
+    
+    <!-- 獨立開發標籤 -->
+    <rect x="320" y="0" width="120" height="32" rx="16" fill="#f4f1de" opacity="0.15"/>
+    <text x="336" y="22" font-family="Noto Sans TC, sans-serif" font-size="14" fill="#f4f1de" opacity="0.9">🎮 獨立開發</text>
+  </g>
+  
+  <!-- 裝飾性引言 -->
+  <g transform="translate(80, 450)" opacity="0.6">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="#c9a959" stroke-width="2"/>
+    <text x="0" y="30" font-family="Noto Serif TC, serif" font-size="16" fill="#f4f1de" font-style="italic">「每一片森林都有它的倒影，每一個白晝都有它的夜晚。」</text>
+  </g>
+  
+  <!-- 底部漂浮粒子效果 -->
+  <g opacity="0.4">
+    <circle cx="100" cy="580" r="2" fill="#c9a959"/>
+    <circle cx="250" cy="550" r="1.5" fill="#f4f1de"/>
+    <circle cx="400" cy="590" r="2" fill="#c9a959"/>
+    <circle cx="550" cy="560" r="1" fill="#f4f1de"/>
+    <circle cx="700" cy="585" r="1.5" fill="#c9a959"/>
+  </g>
+  
+  <!-- 玩報 Logo - 右下角 -->
+  <g transform="translate(1020, 550)">
+    <rect x="0" y="0" width="120" height="44" rx="8" fill="#f4f1de" opacity="0.95"/>
+    <text x="60" y="30" font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="900" fill="#1a3a5c" text-anchor="middle">玩報</text>
+  </g>
+  
+  <!-- 右側裝飾 - 細線條 -->
+  <g stroke="#c9a959" stroke-width="1" opacity="0.3">
+    <line x1="1160" y1="200" x2="1160" y2="280"/>
+    <line x1="1140" y1="260" x2="1180" y2="260"/>
   </g>
 </svg>
