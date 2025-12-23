@@ -1,0 +1,386 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DiscordComments from '../../components/DiscordComments.astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await article.render();
+
+// 格式化日期時間
+function formatDateTime(dateStr: string, timeStr?: string): string {
+  let displayDate = dateStr;
+  let displayTime = timeStr;
+  
+  if (dateStr.includes('T')) {
+    const [d, t] = dateStr.split('T');
+    displayDate = d;
+    displayTime = displayTime || t;
+  } else if (dateStr.includes(' ') && dateStr.length > 10) {
+    const [d, t] = dateStr.split(' ');
+    displayDate = d;
+    displayTime = displayTime || t;
+  }
+  
+  if (displayTime) {
+    return `${displayDate} ${displayTime}`;
+  }
+  return displayDate;
+}
+
+const displayDateTime = formatDateTime(article.data.date, article.data.time);
+
+// 取得相關文章（同標籤的其他文章）
+const allArticles = await getCollection('articles', ({ data }) => !data.draft);
+const relatedArticles = allArticles
+  .filter(a => a.slug !== article.slug && a.data.tag === article.data.tag)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+
+// SEO 資料
+const articleKeywords = [
+  ...(article.data.keywords || []),
+  article.data.tagName,
+  article.data.game,
+  article.data.vtuberName,
+  '玩報',
+  'WANBAO'
+].filter(Boolean);
+
+// 處理圖片 - 可能是物件或字串
+const coverImage = article.data.image;
+const coverImageSrc = coverImage?.src || coverImage;
+---
+
+<BaseLayout 
+  title={article.data.title} 
+  description={article.data.description || `${article.data.title} - 玩報 WANBAO`}
+  keywords={articleKeywords}
+  image={coverImageSrc}
+  type="article"
+  publishedTime={article.data.date}
+  modifiedTime={article.data.updateDate}
+  author={article.data.author}
+  section={article.data.tagName}
+  tags={articleKeywords}
+>
+  <article class="article-page">
+    <header class="article-header">
+      <div class="article-meta-top">
+        <span class={`article-card__tag tag-${article.data.tag}`}>{article.data.tagName}</span>
+        {article.data.game && <span class="game-tag">🎮 {article.data.game}</span>}
+        {article.data.vtuberName && <span class="vtuber-tag">🦊 {article.data.vtuberName}</span>}
+      </div>
+      <h1>{article.data.title}</h1>
+      <div class="article-meta">
+        <span>📅 {displayDateTime}</span>
+        <span>✍️ {article.data.author}</span>
+        {article.data.readingTime && <span>⏱️ 約 {article.data.readingTime} 分鐘</span>}
+        {article.data.updateDate && <span>🔄 更新於 {article.data.updateDate}</span>}
+      </div>
+    </header>
+
+    {coverImage && (
+      <Image 
+        src={coverImage} 
+        alt={article.data.title} 
+        class="article-cover"
+        width={1200}
+        height={630}
+      />
+    )}
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+    <!-- 文章標籤 -->
+    {article.data.keywords && article.data.keywords.length > 0 && (
+      <div class="article-tags">
+        <span class="tags-label">🏷️ 標籤：</span>
+        {article.data.keywords.map((keyword: string) => (
+          <a href={`/search?q=${encodeURIComponent(keyword)}`} class="tag-link">{keyword}</a>
+        ))}
+      </div>
+    )}
+
+    <!-- 分享按鈕 -->
+    <div class="share-section">
+      <span class="share-label">📤 分享文章：</span>
+      <div class="share-buttons">
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://wanbao.tw/articles/${article.slug}`)}`} target="_blank" rel="noopener" class="share-btn share-fb" title="分享到 Facebook">
+          FB
+        </a>
+        <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://wanbao.tw/articles/${article.slug}`)}&text=${encodeURIComponent(article.data.title)}`} target="_blank" rel="noopener" class="share-btn share-twitter" title="分享到 Twitter">
+          𝕏
+        </a>
+        <a href={`https://line.me/R/msg/text/?${encodeURIComponent(article.data.title)}%0D%0A${encodeURIComponent(`https://wanbao.tw/articles/${article.slug}`)}`} target="_blank" rel="noopener" class="share-btn share-line" title="分享到 LINE">
+          LINE
+        </a>
+        <button class="share-btn share-copy" onclick="copyLink()" title="複製連結">
+          📋
+        </button>
+      </div>
+    </div>
+
+    <!-- 相關文章 -->
+    {relatedArticles.length > 0 && (
+      <div class="related-articles">
+        <h3>📚 相關文章</h3>
+        <div class="related-grid">
+          {relatedArticles.map((related) => (
+            <a href={`/articles/${related.slug}`} class="related-card">
+              <span class={`related-tag tag-${related.data.tag}`}>{related.data.tagName}</span>
+              <h4>{related.data.title}</h4>
+              <span class="related-date">{related.data.date}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Discord 留言區 -->
+    {article.data.showComments !== false && (
+      <DiscordComments articleSlug={article.slug} />
+    )}
+
+    <div class="article-nav">
+      <a href="/" class="btn btn-primary">← 返回首頁</a>
+      <a href={`/${article.data.tag === 'vtuber' ? 'vtuber' : article.data.tag === 'guide' ? 'guide' : 'news'}`} class="btn btn-secondary">
+        更多{article.data.tagName}
+      </a>
+    </div>
+  </article>
+</BaseLayout>
+
+<script>
+  function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      alert('連結已複製！');
+    });
+  }
+  window.copyLink = copyLink;
+</script>
+
+<style>
+  .article-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .article-header {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .article-meta-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .game-tag, .vtuber-tag {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--color-bg);
+    color: var(--color-text-light);
+  }
+  
+  .article-header h1 {
+    font-size: 2rem;
+    line-height: 1.3;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-secondary);
+  }
+  
+  .article-meta {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+  
+  .article-cover {
+    width: 100%;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .article-body {
+    background: var(--color-bg-card);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .article-tags {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--color-bg-card);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+  
+  .tags-label {
+    font-weight: 500;
+    color: var(--color-text-light);
+  }
+  
+  .tag-link {
+    padding: 4px 12px;
+    background: var(--color-bg);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--color-text);
+    transition: all var(--transition-fast);
+  }
+  
+  .tag-link:hover {
+    background: var(--color-primary);
+    color: white;
+  }
+  
+  .share-section {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--color-bg-card);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+  
+  .share-label {
+    font-weight: 500;
+    color: var(--color-text-light);
+  }
+  
+  .share-buttons {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+  
+  .share-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all var(--transition-fast);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .share-fb {
+    background: #1877F2;
+    color: white;
+  }
+  
+  .share-twitter {
+    background: #000;
+    color: white;
+  }
+  
+  .share-line {
+    background: #00B900;
+    color: white;
+  }
+  
+  .share-copy {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+  
+  .share-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  
+  .related-articles {
+    margin-top: var(--spacing-xl);
+  }
+  
+  .related-articles h3 {
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+  }
+  
+  .related-card {
+    padding: var(--spacing-md);
+    background: var(--color-bg-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+    display: block;
+  }
+  
+  .related-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .related-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .related-card h4 {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    line-height: 1.4;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .related-date {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+  }
+  
+  .article-nav {
+    margin-top: var(--spacing-xl);
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+  }
+  
+  @media (max-width: 768px) {
+    .article-header h1 {
+      font-size: 1.5rem;
+    }
+    
+    .article-nav {
+      flex-direction: column;
+    }
+    
+    .share-section {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

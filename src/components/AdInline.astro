@@ -1,0 +1,115 @@
+---
+/**
+ * 內嵌廣告元件
+ * 用於文章列表之間、文章內部等
+ * 手機版也會顯示！
+ * 
+ * 使用方式：
+ * <AdInline />                    -- 顯示 Google AdSense
+ * <AdInline type="ainomori" />    -- 顯示靛之森廣告
+ */
+
+interface Props {
+  type?: 'google' | 'ainomori';
+}
+
+const { type = 'google' } = Astro.props;
+---
+
+{type === 'ainomori' ? (
+  <div class="ad-inline ad-inline--ainomori">
+    <a href="https://ainomori.tw" target="_blank" rel="noopener">
+      <img src="/images/ads/Ainomori.gif" alt="靛之森 Ainomori - 台灣 VTuber 企劃" />
+      <span class="ad-inline__text">
+        🦊 靛之森 Ainomori — 來自台灣的 VTuber 企劃
+      </span>
+    </a>
+  </div>
+) : (
+  <div class="ad-inline">
+    <span class="ad-inline__label">廣告</span>
+    <p>728 × 90 或自適應廣告</p>
+    <!-- 
+    AdSense 審核通過後，替換成自適應廣告：
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5723401280589646"
+         data-ad-slot="你的廣告單元ID"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
+  </div>
+)}
+
+<style>
+  .ad-inline {
+    background: var(--color-bg-card);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin: var(--spacing-lg) 0;
+    text-align: center;
+    color: var(--color-text-light);
+  }
+  
+  .ad-inline__label {
+    background: var(--color-border);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-bottom: var(--spacing-xs);
+    display: inline-block;
+  }
+  
+  /* 靛之森廣告樣式 */
+  .ad-inline--ainomori {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: none;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .ad-inline--ainomori a {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm);
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+  
+  .ad-inline--ainomori a:hover {
+    background: rgba(255,255,255,0.05);
+  }
+  
+  .ad-inline--ainomori img {
+    width: 120px;
+    height: auto;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+  }
+  
+  .ad-inline__text {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  /* 手機版調整 */
+  @media (max-width: 768px) {
+    .ad-inline--ainomori a {
+      flex-direction: column;
+      text-align: center;
+      padding: var(--spacing-md);
+    }
+    
+    .ad-inline--ainomori img {
+      width: 160px;
+    }
+    
+    .ad-inline__text {
+      font-size: 0.9rem;
+    }
+  }
+</style>

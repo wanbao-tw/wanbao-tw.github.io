@@ -1,0 +1,23 @@
+{
+  "name": "wanbao",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "玩報 WANBAO - 專注遊戲攻略與 VTuber 資訊的獨立遊戲媒體",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.0.0"
+  },
+  "keywords": [
+    "玩報",
+    "WANBAO",
+    "遊戲攻略",
+    "VTuber",
+    "台灣遊戲媒體"
+  ],
+  "author": "玩報編輯部",
+  "license": "MIT"
+}

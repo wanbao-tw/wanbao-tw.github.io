@@ -1,0 +1,11 @@
+# 玩報 WANBAO - robots.txt
+# https://wanbao.tw
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://wanbao.tw/sitemap-index.xml
+
+# 爬蟲友好設定
+Crawl-delay: 1
