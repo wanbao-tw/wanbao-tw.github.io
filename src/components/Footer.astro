@@ -4,25 +4,55 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-section">
-      <h4>玩報 WANBAO</h4>
-      <p style="opacity: 0.8; font-size: 0.9rem;">
+    <div class="footer-section footer-brand">
+      <img src="/images/logo-150.png" alt="玩報 WANBAO" class="footer-logo" />
+      <p style="opacity: 0.9; font-size: 0.9rem; margin-top: 0.5rem;">
         專注遊戲攻略與 VTuber 資訊的獨立媒體
+      </p>
+      <p style="opacity: 0.7; font-size: 0.8rem; margin-top: 0.5rem;">
+        每一個聲音都值得被聽見
       </p>
     </div>
     <div class="footer-section">
-      <h4>分類</h4>
-      <a href="/guide">遊戲攻略</a>
-      <a href="/vtuber">VTuber 專區</a>
-      <a href="/news">遊戲新聞</a>
+      <h4>內容分類</h4>
+      <a href="/guide">📖 遊戲攻略</a>
+      <a href="/vtuber">🦊 VTuber 專區</a>
+      <a href="/news">📰 遊戲新聞</a>
+      <a href="/search">🔍 搜尋文章</a>
+    </div>
+    <div class="footer-section">
+      <h4>關於玩報</h4>
+      <a href="/about">關於我們</a>
+      <a href="/articles/welcome-to-wanbao">認識玩報</a>
+      <a href="mailto:contact@wanbao.tw">合作洽談</a>
     </div>
     <div class="footer-section">
       <h4>聯絡我們</h4>
-      <a href="mailto:contact@wanbao.tw">contact@wanbao.tw</a>
-      <a href="/about">關於玩報</a>
+      <a href="mailto:contact@wanbao.tw">
+        📧 contact@wanbao.tw
+      </a>
+      <p style="opacity: 0.7; font-size: 0.85rem; margin-top: 0.5rem;">
+        歡迎投稿、合作提案、或推薦好內容
+      </p>
     </div>
   </div>
   <div class="footer-bottom">
     <p>© {year} 玩報 WANBAO. All Rights Reserved.</p>
+    <p style="margin-top: 0.25rem; font-size: 0.75rem; opacity: 0.6;">
+      以 Astro 建構，部署於 Cloudflare Pages
+    </p>
   </div>
 </footer>
+
+<style>
+  .footer-logo {
+    height: 40px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+  }
+  
+  .footer-brand {
+    max-width: 250px;
+  }
+</style>

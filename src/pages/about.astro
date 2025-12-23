@@ -2,52 +2,294 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="關於我們" description="關於玩報 WANBAO">
-  <article class="article-page">
+<BaseLayout 
+  title="關於我們" 
+  description="玩報 WANBAO 是一個專注遊戲攻略與 VTuber 資訊的獨立媒體。我們相信每一個聲音都值得被聽見。"
+  keywords={['玩報', '關於我們', '遊戲媒體', '獨立媒體', 'VTuber媒體']}
+>
+  <article class="article-page about-page">
     <header class="article-header">
+      <img src="/images/logo-300.png" alt="玩報 WANBAO" class="about-logo" />
       <h1>關於玩報 WANBAO</h1>
-      <p class="article-meta">一個專注遊戲攻略與 VTuber 的獨立媒體</p>
+      <p class="article-meta about-tagline">玩家的報導，給玩家看</p>
     </header>
 
     <div class="article-body">
-      <h2>🎮 我們是誰</h2>
-      <p>
-        <strong>玩報 WANBAO</strong> 是一個由遊戲愛好者創立的獨立遊戲媒體。
-        我們相信遊戲報導應該更加公正、深入，而不只是翻譯新聞或帶風向。
-      </p>
-      <p>
-        作為玩家，我們懂玩家需要什麼。作為創作者，我們理解 VTuber 社群的生態。
-        這就是玩報存在的意義。
-      </p>
+      
+      <section class="about-section">
+        <h2>🎮 我們是誰</h2>
+        <p>
+          <strong>玩報 WANBAO</strong> 是一個專注於遊戲攻略與 VTuber 資訊的獨立媒體。
+        </p>
+        <p>
+          我們的名字來自「玩家的報導」——簡單、直接，就像我們想要做的事情一樣。
+          在資訊爆炸的時代，有些聲音反而更容易被淹沒。我們想要成為<strong>那些被忽略的好東西的放大器</strong>。
+        </p>
+        <p>
+          一款小眾但很有趣的獨立遊戲、一位剛起步但認真創作的 VTuber、一個不在主流討論範圍但其實很值得關注的話題——這些東西有時候就是沒那麼容易被看見。我們想當那個願意去角落裡翻找寶藏的人。
+        </p>
+      </section>
 
-      <h2>📌 我們的內容</h2>
-      <ul>
-        <li><strong>遊戲攻略</strong> — 實用、深入、不廢話的攻略文章</li>
-        <li><strong>VTuber 專區</strong> — 台灣 VTuber 的專訪、介紹與最新動態</li>
-        <li><strong>遊戲新聞</strong> — 重要的遊戲產業消息與評論</li>
-        <li><strong>遊戲評測</strong> — 真實的遊戲體驗分享</li>
-      </ul>
+      <section class="about-section">
+        <h2>💡 我們的核心價值</h2>
+        
+        <div class="value-cards">
+          <div class="value-card">
+            <div class="value-icon">🎙️</div>
+            <h3>每一個聲音都值得被聽見</h3>
+            <p>不管是 3A 大作還是獨立小品，不管是知名創作者還是新人——我們用同樣認真的態度去了解、去介紹。</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">👂</div>
+            <h3>讀者的意見同等重要</h3>
+            <p>玩報不只是「我們寫、你們看」的單向平台。你們的聲音，就是我們最重要的指南針。</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">💬</div>
+            <h3>說人話，不說廢話</h3>
+            <p>簡單、清楚、實用。如果你看完一篇攻略還是不知道怎麼打，那是我們的問題，不是你的問題。</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">💚</div>
+            <h3>誠實，但溫柔</h3>
+            <p>我們會誠實地分享看法，但批評是為了讓事情變得更好，不是為了傷害人。</p>
+          </div>
+        </div>
+      </section>
 
-      <h2>🤝 合作邀約</h2>
-      <p>我們提供以下合作服務：</p>
-      <ul>
-        <li>VTuber 工商文章撰寫（$1,000 TWD 起）</li>
-        <li>遊戲宣傳合作</li>
-        <li>專訪邀約</li>
-        <li>廣告橫幅刊登</li>
-      </ul>
-      <p>
-        有興趣合作的朋友，歡迎來信：<a href="mailto:contact@wanbao.tw">contact@wanbao.tw</a>
-      </p>
+      <section class="about-section">
+        <h2>📌 我們的內容</h2>
+        <div class="content-grid">
+          <a href="/guide" class="content-item">
+            <span class="content-icon">📖</span>
+            <div>
+              <h3>遊戲攻略</h3>
+              <p>實用、深入、看完就能上手的攻略文章</p>
+            </div>
+          </a>
+          <a href="/vtuber" class="content-item">
+            <span class="content-icon">🦊</span>
+            <div>
+              <h3>VTuber 專區</h3>
+              <p>台灣 VTuber 的專訪、介紹與最新動態</p>
+            </div>
+          </a>
+          <a href="/news" class="content-item">
+            <span class="content-icon">📰</span>
+            <div>
+              <h3>遊戲新聞</h3>
+              <p>重要的遊戲產業消息與評論</p>
+            </div>
+          </a>
+          <div class="content-item">
+            <span class="content-icon">🎯</span>
+            <div>
+              <h3>遊戲評測</h3>
+              <p>真實的遊戲體驗，說好說壞都誠實</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <h2>📬 聯絡我們</h2>
-      <p>
-        Email：<a href="mailto:contact@wanbao.tw">contact@wanbao.tw</a>
-      </p>
+      <section class="about-section">
+        <h2>🤝 合作邀約</h2>
+        <p>我們提供以下合作服務：</p>
+        <div class="collab-grid">
+          <div class="collab-item">
+            <strong>VTuber 工商文章</strong>
+            <span>$1,000 TWD 起</span>
+          </div>
+          <div class="collab-item">
+            <strong>遊戲宣傳合作</strong>
+            <span>歡迎來信洽談</span>
+          </div>
+          <div class="collab-item">
+            <strong>專訪邀約</strong>
+            <span>歡迎來信洽談</span>
+          </div>
+          <div class="collab-item">
+            <strong>廣告橫幅刊登</strong>
+            <span>歡迎來信洽談</span>
+          </div>
+        </div>
+      </section>
 
-      <blockquote>
-        「玩報」— 玩家的報導，給玩家看。
+      <section class="about-section">
+        <h2>📬 聯絡我們</h2>
+        <p>
+          有任何想法、建議、合作提案，或是想推薦值得報導的內容？
+        </p>
+        <div class="contact-box">
+          <p>
+            <strong>Email</strong><br>
+            <a href="mailto:contact@wanbao.tw">contact@wanbao.tw</a>
+          </p>
+        </div>
+      </section>
+
+      <blockquote class="about-quote">
+        「每一個聲音都值得被聽見。」<br>
+        <cite>— 玩報 WANBAO</cite>
       </blockquote>
+
     </div>
   </article>
 </BaseLayout>
+
+<style>
+  .about-page {
+    max-width: 900px;
+  }
+  
+  .about-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 1.5rem;
+  }
+  
+  .about-tagline {
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+  
+  .about-section {
+    margin-bottom: 2.5rem;
+  }
+  
+  .about-section h2 {
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+  }
+  
+  .value-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .value-card {
+    background: var(--color-bg);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+  
+  .value-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .value-card h3 {
+    color: var(--color-secondary);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .value-card p {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .content-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--color-bg);
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+  
+  a.content-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .content-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  
+  .content-item h3 {
+    color: var(--color-secondary);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .content-item p {
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+  
+  .collab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .collab-item {
+    background: var(--color-bg);
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+  
+  .collab-item strong {
+    display: block;
+    color: var(--color-secondary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .collab-item span {
+    color: var(--color-primary);
+    font-size: 0.9rem;
+  }
+  
+  .contact-box {
+    background: var(--color-bg);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .contact-box a {
+    color: var(--color-primary);
+    font-size: 1.2rem;
+  }
+  
+  .about-quote {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--color-secondary);
+    border-left: none;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: white;
+    border-radius: var(--radius-md);
+    margin-top: 2rem;
+  }
+  
+  .about-quote cite {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+</style>

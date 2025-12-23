@@ -1,5 +1,5 @@
 /* ============================================
-   玩報 WANBAO v2 - 全域樣式
+   玩報 WANBAO v1.0 - 全域樣式
    配色：黃 #F7B32B + 藍 #1E4B8E
    ============================================ */
 
@@ -13,10 +13,21 @@
   --color-text: #2D3436;
   --color-text-light: #636E72;
   --color-border: #DFE6E9;
+  
+  /* 標籤顏色 */
   --color-tag-news: #E74C3C;
   --color-tag-guide: #27AE60;
   --color-tag-vtuber: #9B59B6;
   --color-tag-review: #3498DB;
+  --color-tag-interview: #E67E22;
+  --color-tag-esports: #C0392B;
+  --color-tag-indie: #16A085;
+  --color-tag-mobile: #8E44AD;
+  --color-tag-pc: #2980B9;
+  --color-tag-console: #D35400;
+  --color-tag-event: #F39C12;
+  --color-tag-opinion: #7F8C8D;
+  
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 1.5rem;
@@ -45,6 +56,7 @@ img { max-width: 100%; height: auto; }
 .site-header { background: var(--color-bg-card); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1000; }
 .header-inner { max-width: 1200px; margin: 0 auto; padding: var(--spacing-sm) var(--spacing-md); display: flex; align-items: center; justify-content: space-between; }
 .logo { height: 48px; width: auto; }
+.logo-link { display: flex; align-items: center; }
 .logo-text { font-size: 1.8rem; font-weight: 700; color: var(--color-secondary); display: flex; align-items: center; gap: var(--spacing-xs); }
 .logo-text span { color: var(--color-primary); }
 .main-nav { display: flex; gap: var(--spacing-md); }
@@ -148,10 +160,21 @@ img { max-width: 100%; height: auto; }
 .article-card__image { width: 100%; height: 180px; object-fit: cover; background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%); }
 .article-card__content { padding: var(--spacing-md); }
 .article-card__tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; color: white; margin-bottom: var(--spacing-xs); }
+
+/* 所有標籤顏色 */
 .tag-news { background: var(--color-tag-news); }
 .tag-guide { background: var(--color-tag-guide); }
 .tag-vtuber { background: var(--color-tag-vtuber); }
 .tag-review { background: var(--color-tag-review); }
+.tag-interview { background: var(--color-tag-interview); }
+.tag-esports { background: var(--color-tag-esports); }
+.tag-indie { background: var(--color-tag-indie); }
+.tag-mobile { background: var(--color-tag-mobile); }
+.tag-pc { background: var(--color-tag-pc); }
+.tag-console { background: var(--color-tag-console); }
+.tag-event { background: var(--color-tag-event); }
+.tag-opinion { background: var(--color-tag-opinion); }
+
 .article-card__title { font-size: 1.1rem; margin-bottom: var(--spacing-xs); line-height: 1.4; }
 .article-card__title a { color: var(--color-text); }
 .article-card__title a:hover { color: var(--color-primary); }
@@ -185,6 +208,10 @@ img { max-width: 100%; height: auto; }
 .article-body code { background: var(--color-bg); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
 .article-body pre { background: #2d3436; color: #dfe6e9; padding: var(--spacing-md); border-radius: var(--radius-sm); overflow-x: auto; margin: var(--spacing-md) 0; }
 .article-body pre code { background: none; padding: 0; }
+.article-body table { width: 100%; border-collapse: collapse; margin: var(--spacing-md) 0; }
+.article-body th, .article-body td { padding: var(--spacing-sm); border: 1px solid var(--color-border); text-align: left; }
+.article-body th { background: var(--color-bg); font-weight: 600; }
+.article-body hr { border: none; border-top: 2px solid var(--color-border); margin: var(--spacing-lg) 0; }
 
 /* ============================================
    Footer
@@ -225,6 +252,7 @@ img { max-width: 100%; height: auto; }
   .carousel-arrow { display: none; }
   .articles-grid { grid-template-columns: 1fr; }
   .page-wrapper { padding: var(--spacing-md); }
+  .article-header h1 { font-size: 1.5rem; }
 }
 
 /* 文章內廣告（手機也顯示） */
@@ -236,4 +264,33 @@ img { max-width: 100%; height: auto; }
   margin: var(--spacing-lg) 0;
   text-align: center;
   color: var(--color-text-light);
+}
+
+/* ============================================
+   選擇文字顏色
+   ============================================ */
+::selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ============================================
+   滾動條美化（WebKit）
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-light);
 }

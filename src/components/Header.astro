@@ -4,16 +4,164 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="logo-text">
-      <span>玩</span>報
+    <a href="/" class="logo-link" aria-label="玩報首頁">
+      <img src="/images/logo-150.png" alt="玩報 WANBAO" class="logo-img" />
     </a>
-    <button class="menu-toggle" aria-label="選單">☰</button>
-    <nav class="main-nav">
-      <a href="/" class:list={[{ active: currentPath === '/' }]}>首頁</a>
-      <a href="/guide" class:list={[{ active: currentPath.startsWith('/guide') }]}>攻略</a>
-      <a href="/vtuber" class:list={[{ active: currentPath.startsWith('/vtuber') }]}>VTuber</a>
-      <a href="/news" class:list={[{ active: currentPath.startsWith('/news') }]}>新聞</a>
-      <a href="/about" class:list={[{ active: currentPath === '/about' }]}>關於我們</a>
-    </nav>
+    
+    <div class="header-right">
+      <!-- 搜尋按鈕 -->
+      <a href="/search" class="search-btn" aria-label="搜尋文章" title="搜尋 (Ctrl+K)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </a>
+      
+      <button class="menu-toggle" aria-label="選單">☰</button>
+      
+      <nav class="main-nav">
+        <a href="/" class:list={[{ active: currentPath === '/' }]}>首頁</a>
+        <a href="/guide" class:list={[{ active: currentPath.startsWith('/guide') }]}>攻略</a>
+        <a href="/vtuber" class:list={[{ active: currentPath.startsWith('/vtuber') }]}>VTuber</a>
+        <a href="/news" class:list={[{ active: currentPath.startsWith('/news') }]}>新聞</a>
+        <a href="/search" class:list={['nav-search', { active: currentPath === '/search' }]}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+          搜尋
+        </a>
+        <a href="/about" class:list={[{ active: currentPath === '/about' }]}>關於我們</a>
+      </nav>
+    </div>
   </div>
 </header>
+
+<style>
+  .site-header {
+    background: var(--color-bg-card);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-sm) var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo-link {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  
+  .logo-img {
+    height: 48px;
+    width: auto;
+    transition: transform var(--transition-fast);
+  }
+  
+  .logo-img:hover {
+    transform: scale(1.05);
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .search-btn {
+    display: none;
+    padding: var(--spacing-xs);
+    color: var(--color-secondary);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+  
+  .search-btn:hover {
+    background: var(--color-primary);
+    color: white;
+  }
+  
+  .main-nav {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+  
+  .main-nav a {
+    color: var(--color-text);
+    font-weight: 500;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .main-nav a:hover,
+  .main-nav a.active {
+    background: var(--color-primary);
+    color: white;
+  }
+  
+  .nav-search {
+    background: var(--color-bg);
+  }
+  
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-secondary);
+    padding: var(--spacing-xs);
+  }
+  
+  @media (max-width: 768px) {
+    .header-inner {
+      flex-wrap: wrap;
+    }
+    
+    .search-btn {
+      display: flex;
+    }
+    
+    .menu-toggle {
+      display: block;
+    }
+    
+    .main-nav {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      gap: 0;
+      margin-top: var(--spacing-sm);
+    }
+    
+    .main-nav.active {
+      display: flex;
+    }
+    
+    .main-nav a {
+      padding: var(--spacing-sm);
+      border-bottom: 1px solid var(--color-border);
+    }
+    
+    .nav-search {
+      display: none;
+    }
+    
+    .logo-img {
+      height: 40px;
+    }
+  }
+</style>

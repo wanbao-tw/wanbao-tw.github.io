@@ -7,10 +7,30 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  keywords?: string[];
+  type?: 'website' | 'article';
   showAds?: boolean;
+  noIndex?: boolean;
 }
 
-const { title, description = '專注遊戲攻略與 VTuber 資訊的獨立遊戲媒體', showAds = true } = Astro.props;
+const { 
+  title, 
+  description = '專注遊戲攻略與 VTuber 資訊的獨立遊戲媒體', 
+  image = '/images/wanbao-cover.jpg',
+  keywords = [],
+  type = 'website',
+  showAds = true,
+  noIndex = false
+} = Astro.props;
+
+const siteUrl = 'https://wanbao.tw';
+const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+
+// 預設關鍵字
+const defaultKeywords = ['玩報', 'WANBAO', '遊戲攻略', 'VTuber', '遊戲新聞', '台灣遊戲媒體', 'TFT攻略'];
+const allKeywords = [...new Set([...keywords, ...defaultKeywords])];
 ---
 
 <!DOCTYPE html>
@@ -18,16 +38,74 @@ const { title, description = '專注遊戲攻略與 VTuber 資訊的獨立遊戲
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content={description}>
+  
+  <!-- 基本 SEO -->
   <title>{title} - 玩報 WANBAO</title>
+  <meta name="description" content={description}>
+  <meta name="keywords" content={allKeywords.join(', ')}>
+  <meta name="author" content="玩報編輯部">
+  <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'}>
+  <link rel="canonical" href={canonicalUrl}>
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content={type}>
+  <meta property="og:url" content={canonicalUrl}>
+  <meta property="og:title" content={`${title} - 玩報 WANBAO`}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={fullImageUrl}>
+  <meta property="og:site_name" content="玩報 WANBAO">
+  <meta property="og:locale" content="zh_TW">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content={canonicalUrl}>
+  <meta name="twitter:title" content={`${title} - 玩報 WANBAO`}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={fullImageUrl}>
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-150.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-150.png">
+  <link rel="apple-touch-icon" href="/images/logo-300.png">
+  
+  <!-- 字體 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723401280589646" crossorigin="anonymous"></script>
-
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723401280589646" crossorigin="anonymous"></script>
+  
+  <!-- 結構化資料 - 網站 -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "玩報 WANBAO",
+      "description": "專注遊戲攻略與 VTuber 資訊的獨立遊戲媒體",
+      "url": "https://wanbao.tw",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://wanbao.tw/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+  
+  <!-- 結構化資料 - 組織 -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "玩報 WANBAO",
+      "url": "https://wanbao.tw",
+      "logo": "https://wanbao.tw/images/logo-300.png",
+      "description": "專注遊戲攻略與 VTuber 資訊的獨立遊戲媒體",
+      "sameAs": []
+    }
+  </script>
+  
+  <slot name="head" />
 </head>
 <body>
   <Header />
@@ -45,6 +123,7 @@ const { title, description = '專注遊戲攻略與 VTuber 資訊的獨立遊戲
   <Footer />
   
   <script>
+    // 手機選單切換
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.querySelector('.main-nav');
     if (menuToggle && mainNav) {
