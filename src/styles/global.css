@@ -1,5 +1,5 @@
 /* ============================================
-   玩報 WANBAO v1.0 - 全域樣式
+   玩報 WANBAO v1.2 - 全域樣式
    配色：黃 #F7B32B + 藍 #1E4B8E
    ============================================ */
 
@@ -278,38 +278,75 @@ img { max-width: 100%; height: auto; }
    滾動條美化（WebKit）
    ============================================ */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--color-bg);
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 4px;
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%);
+  border-radius: 5px;
+  border: 2px solid var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-light);
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+}
+
+/* ============================================
+   Focus 樣式改進（無障礙）
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   平滑過渡效果
+   ============================================ */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  transition: opacity var(--transition-fast);
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+}
+
+img[loading="lazy"].loaded,
+img:not([loading="lazy"]) {
+  opacity: 1;
 }
 
 /* ============================================
    遊戲風格滑鼠特效
    ============================================ */
 
-/* 自訂游標 - 像素風格十字準心 */
+/* 自訂游標 - 精緻遊戲風格 */
 body {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%231E4B8E' d='M11 0h2v8h-2zM11 16h2v8h-2zM0 11h8v2H0zM16 11h8v2h-2z'/%3E%3Crect fill='%23F7B32B' x='10' y='10' width='4' height='4'/%3E%3C/svg%3E") 12 12, crosshair;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231E4B8E'/%3E%3Cstop offset='100%25' style='stop-color:%232A5FAD'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='1,1 1,17 5,13 8,19 11,18 8,12 14,12' fill='url(%23g)'/%3E%3Cpolygon points='1,1 1,17 5,13 8,19 11,18 8,12 14,12' fill='none' stroke='%23F7B32B' stroke-width='1'/%3E%3C/svg%3E") 1 1, auto;
 }
 
 /* 連結和按鈕用指針游標 */
-a, button, .btn, [role="button"] {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23F7B32B' d='M4 0h4v4H4zM0 4h4v4H0zM8 4h4v4H8zM4 8h4v4H4zM12 8h4v4h-4zM8 12h4v4H8zM16 12h4v4h-4zM12 16h4v4h-4zM20 16h4v4h-4zM16 20h4v4h-4z'/%3E%3C/svg%3E") 4 0, pointer;
+a, button, .btn, [role="button"], input[type="submit"], select {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='h' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23F7B32B'/%3E%3Cstop offset='100%25' style='stop-color:%23D99A1F'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M7,2 L7,14 L10,11 L13,18 L16,17 L13,10 L18,10 Z' fill='url(%23h)'/%3E%3Cpath d='M7,2 L7,14 L10,11 L13,18 L16,17 L13,10 L18,10 Z' fill='none' stroke='%231E4B8E' stroke-width='1'/%3E%3C/svg%3E") 7 2, pointer;
 }
 
-/* 滑鼠跟隨粒子容器 */
+/* 滑鼠跟隨特效容器 */
 #cursor-trail {
   position: fixed;
   top: 0;
@@ -323,29 +360,35 @@ a, button, .btn, [role="button"] {
 
 .cursor-particle {
   position: absolute;
-  width: 6px;
-  height: 6px;
-  background: var(--color-primary);
-  border-radius: 0;
-  pointer-events: none;
-  opacity: 0.8;
-  animation: particle-fade 0.5s ease-out forwards;
-  image-rendering: pixelated;
-}
-
-.cursor-particle:nth-child(odd) {
-  background: var(--color-secondary);
   width: 4px;
   height: 4px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.7;
+  animation: particle-fade 0.4s ease-out forwards;
+  box-shadow: 0 0 4px var(--color-primary);
+}
+
+.cursor-particle:nth-child(3n) {
+  background: var(--color-secondary);
+  width: 3px;
+  height: 3px;
+  box-shadow: 0 0 3px var(--color-secondary);
+}
+
+.cursor-particle:nth-child(3n+1) {
+  width: 5px;
+  height: 5px;
 }
 
 @keyframes particle-fade {
   0% {
-    opacity: 0.8;
-    transform: scale(1);
+    opacity: 0.7;
+    transform: scale(1) translateY(0);
   }
   100% {
     opacity: 0;
-    transform: scale(0.3);
+    transform: scale(0.2) translateY(-10px);
   }
 }
