@@ -166,9 +166,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-size: 1.4rem;
   }
   
+  /* 強制 2x2 排版 */
   .value-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin-top: 1rem;
   }
@@ -197,9 +198,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin: 0;
   }
   
+  /* 強制 2x2 排版 */
   .content-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin-top: 1rem;
   }
@@ -236,9 +238,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin: 0;
   }
   
+  /* 強制 2x2 排版 */
   .collab-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin-top: 1rem;
   }
@@ -291,5 +294,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin-top: 0.5rem;
     font-size: 1rem;
     opacity: 0.9;
+  }
+  
+  /* 手機版改為單欄 */
+  @media (max-width: 600px) {
+    .value-cards,
+    .content-grid,
+    .collab-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

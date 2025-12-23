@@ -8,9 +8,28 @@ const currentPath = Astro.url.pathname;
       <img src="/images/logo-150.png" alt="玩報 WANBAO" class="logo-img" />
     </a>
     
+    <div class="header-center">
+      <!-- 桌面版搜尋框 -->
+      <form class="header-search" action="/search" method="GET">
+        <input 
+          type="search" 
+          name="q" 
+          placeholder="搜尋文章..." 
+          class="header-search__input"
+          autocomplete="off"
+        />
+        <button type="submit" class="header-search__btn" aria-label="搜尋">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+    
     <div class="header-right">
-      <!-- 搜尋按鈕 -->
-      <a href="/search" class="search-btn" aria-label="搜尋文章" title="搜尋 (Ctrl+K)">
+      <!-- 手機版搜尋按鈕 -->
+      <a href="/search" class="search-btn-mobile" aria-label="搜尋文章" title="搜尋">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <path d="m21 21-4.3-4.3"></path>
@@ -24,13 +43,6 @@ const currentPath = Astro.url.pathname;
         <a href="/guide" class:list={[{ active: currentPath.startsWith('/guide') }]}>攻略</a>
         <a href="/vtuber" class:list={[{ active: currentPath.startsWith('/vtuber') }]}>VTuber</a>
         <a href="/news" class:list={[{ active: currentPath.startsWith('/news') }]}>新聞</a>
-        <a href="/search" class:list={['nav-search', { active: currentPath === '/search' }]}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21 21-4.3-4.3"></path>
-          </svg>
-          搜尋
-        </a>
         <a href="/about" class:list={[{ active: currentPath === '/about' }]}>關於我們</a>
       </nav>
     </div>
@@ -53,6 +65,7 @@ const currentPath = Astro.url.pathname;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--spacing-md);
   }
   
   .logo-link {
@@ -71,13 +84,70 @@ const currentPath = Astro.url.pathname;
     transform: scale(1.05);
   }
   
+  /* 搜尋框 */
+  .header-center {
+    flex: 1;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .header-search {
+    display: flex;
+    width: 100%;
+    position: relative;
+  }
+  
+  .header-search__input {
+    width: 100%;
+    padding: 0.6rem 2.8rem 0.6rem 1rem;
+    border: 2px solid var(--color-border);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    background: var(--color-bg);
+    transition: all var(--transition-fast);
+    outline: none;
+  }
+  
+  .header-search__input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(247, 179, 43, 0.15);
+  }
+  
+  .header-search__input::placeholder {
+    color: var(--color-text-light);
+  }
+  
+  .header-search__btn {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-primary);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: all var(--transition-fast);
+  }
+  
+  .header-search__btn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-50%) scale(1.05);
+  }
+  
   .header-right {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
   }
   
-  .search-btn {
+  .search-btn-mobile {
     display: none;
     padding: var(--spacing-xs);
     color: var(--color-secondary);
@@ -85,7 +155,7 @@ const currentPath = Astro.url.pathname;
     transition: all var(--transition-fast);
   }
   
-  .search-btn:hover {
+  .search-btn-mobile:hover {
     background: var(--color-primary);
     color: white;
   }
@@ -112,10 +182,6 @@ const currentPath = Astro.url.pathname;
     color: white;
   }
   
-  .nav-search {
-    background: var(--color-bg);
-  }
-  
   .menu-toggle {
     display: none;
     background: none;
@@ -126,12 +192,22 @@ const currentPath = Astro.url.pathname;
     padding: var(--spacing-xs);
   }
   
+  @media (max-width: 900px) {
+    .header-center {
+      max-width: 280px;
+    }
+  }
+  
   @media (max-width: 768px) {
     .header-inner {
       flex-wrap: wrap;
     }
     
-    .search-btn {
+    .header-center {
+      display: none;
+    }
+    
+    .search-btn-mobile {
       display: flex;
     }
     
@@ -154,10 +230,6 @@ const currentPath = Astro.url.pathname;
     .main-nav a {
       padding: var(--spacing-sm);
       border-bottom: 1px solid var(--color-border);
-    }
-    
-    .nav-search {
-      display: none;
     }
     
     .logo-img {
