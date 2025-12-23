@@ -7,7 +7,7 @@ author: '玩報編輯部'
 tag: 'interview'
 tagName: '專訪'
 extraTags: ['vtuber', 'news']
-image: './cover.svg'
+image: ./cover.svg
 draft: false
 keywords: ['鳥羽樂奈', '裏之森', '靛之森', 'VTuber', '獨立遊戲', '台灣VTuber', 'TobaRana', '艷世設計']
 vtuberName: '鳥羽樂奈'

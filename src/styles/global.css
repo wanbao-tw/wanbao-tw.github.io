@@ -1,5 +1,5 @@
 /* ============================================
-   玩報 WANBAO v1.6 - 全域樣式
+   玩報 WANBAO v1.6.1 - 全域樣式
    配色：黃 #F7B32B + 藍 #1E4B8E
    ============================================ */
 
@@ -321,14 +321,6 @@ input:focus-visible {
 
 img {
   transition: opacity var(--transition-fast);
-}
-
-img[loading="lazy"] {
-  opacity: 0;
-}
-
-img[loading="lazy"].loaded,
-img:not([loading="lazy"]) {
   opacity: 1;
 }
 
