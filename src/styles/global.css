@@ -1,5 +1,5 @@
 /* ============================================
-   玩報 WANBAO v1.6.1 - 全域樣式
+   玩報 WANBAO v1.6.2 - 全域樣式
    配色：黃 #F7B32B + 藍 #1E4B8E
    ============================================ */
 
@@ -149,6 +149,18 @@ img { max-width: 100%; height: auto; }
 .slide-vtuber { background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%); }
 .slide-ad { background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%); }
 
+/* Page Banner with Image Background */
+.page-banner {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-xl);
+  overflow: hidden;
+}
+
 .section-title { font-size: 1.5rem; color: var(--color-secondary); margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-xs); border-bottom: 3px solid var(--color-primary); display: inline-block; }
 
 /* ============================================
@@ -253,6 +265,7 @@ img { max-width: 100%; height: auto; }
   .articles-grid { grid-template-columns: 1fr; }
   .page-wrapper { padding: var(--spacing-md); }
   .article-header h1 { font-size: 1.5rem; }
+  .page-banner { height: 120px; border-radius: var(--radius-md); }
 }
 
 /* 文章內廣告（手機也顯示） */
