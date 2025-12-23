@@ -2,7 +2,7 @@
 /**
  * 廣告側邊欄元件
  * 左邊：Google Ad + 靛之森
- * 右邊：Google Ad + Google Ad
+ * 右邊：艷世廣告影片 + Google Ad
  */
 
 interface Props {
@@ -13,23 +13,34 @@ const { position = 'left' } = Astro.props;
 ---
 
 <aside class={`ad-sidebar ad-sidebar--${position}`}>
-  <!-- 廣告位 1：160x600 (Google AdSense) -->
-  <div class="ad-slot">
-    <span class="ad-slot__label">廣告</span>
-    <p>160 × 600</p>
-    <p style="font-size: 0.75rem; margin-top: 0.5rem;">
-      廣告位招租<br/>
-      <a href="mailto:contact@wanbao.tw">聯絡我們</a>
-    </p>
-    <!-- 
-    AdSense 審核通過後，替換成：
-    <ins class="adsbygoogle"
-         style="display:inline-block;width:160px;height:600px"
-         data-ad-client="ca-pub-5723401280589646"
-         data-ad-slot="你的廣告單元ID"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    -->
-  </div>
+  {position === 'left' ? (
+    <!-- 左邊上方：160x600 (Google AdSense) -->
+    <div class="ad-slot">
+      <span class="ad-slot__label">廣告</span>
+      <p>160 × 600</p>
+      <p style="font-size: 0.75rem; margin-top: 0.5rem;">
+        廣告位招租<br/>
+        <a href="mailto:contact@wanbao.tw">聯絡我們</a>
+      </p>
+      <!-- 
+      AdSense 審核通過後，替換成：
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-5723401280589646"
+           data-ad-slot="你的廣告單元ID"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      -->
+    </div>
+  ) : (
+    <!-- 右邊上方：裏之森廣告影片 -->
+    <div class="ad-slot ad-slot--video">
+      <a href="https://eromori.tw/" target="_blank" rel="noopener" title="裏之森 Eromori">
+        <video autoplay loop muted playsinline>
+          <source src="/images/ads/eromori-AD.mp4" type="video/mp4">
+        </video>
+      </a>
+    </div>
+  )}
 
   <!-- 廣告位 2：160x250 -->
   {position === 'left' ? (
@@ -57,6 +68,33 @@ const { position = 'left' } = Astro.props;
 </aside>
 
 <style>
+  .ad-slot--video {
+    padding: 0;
+    border: none;
+    background: transparent;
+    min-height: auto;
+  }
+  
+  .ad-slot--video a {
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .ad-slot--video a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  }
+  
+  .ad-slot--video video {
+    display: block;
+    width: 160px;
+    height: auto;
+    border-radius: 12px;
+  }
+
   .ad-slot--ainomori {
     padding: 0;
     border: none;
