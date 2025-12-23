@@ -2,6 +2,7 @@
 title: '靛之森的另一面——VTuber 鳥羽樂奈打造沉浸式互動體驗的幕後故事'
 description: '台灣 SuperChat 紀錄保持者鳥羽樂奈，以十年世界觀打造原創遊戲「裏之森 Online」。專訪揭露獨立開發的幕後故事與創作哲學。'
 date: '2025-12-23'
+time: '14:30'
 author: '玩報編輯部'
 tag: 'interview'
 tagName: '專訪'
@@ -13,6 +14,7 @@ vtuberName: '鳥羽樂奈'
 game: '裏之森 Online'
 featured: true
 showComments: true
+readingTime: 8
 ---
 
 ## 前言

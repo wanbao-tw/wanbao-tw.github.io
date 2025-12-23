@@ -22,7 +22,11 @@ const articles = defineCollection({
     // 基本資訊
     title: z.string(),
     description: z.string().optional(),
+    // 支持兩種格式：
+    // - 純日期: "2025-12-23"
+    // - 含時間: "2025-12-23T14:30" 或 "2025-12-23 14:30"
     date: z.string(),
+    time: z.string().optional(),  // 可選的獨立時間欄位 "14:30"
     author: z.string().default('玩報編輯部'),
     image: z.string().optional(),
     draft: z.boolean().default(false),
@@ -32,25 +36,24 @@ const articles = defineCollection({
     tagName: z.string(),
     
     // 額外分類標籤（可選，讓文章出現在多個分類頁面）
-    // 例如：VTuber 專訪可以同時出現在 vtuber 和 news 分類
     extraTags: z.array(z.enum(tagTypes)).optional(),
     
     // SEO 增強欄位
-    keywords: z.array(z.string()).optional(),       // SEO 關鍵字
-    series: z.string().optional(),                  // 系列文章
-    game: z.string().optional(),                    // 遊戲名稱（用於攻略）
-    vtuberName: z.string().optional(),              // VTuber 名稱
-    relatedArticles: z.array(z.string()).optional(), // 相關文章 slug
-    featured: z.boolean().default(false),           // 精選文章
+    keywords: z.array(z.string()).optional(),
+    series: z.string().optional(),
+    game: z.string().optional(),
+    vtuberName: z.string().optional(),
+    relatedArticles: z.array(z.string()).optional(),
+    featured: z.boolean().default(false),
     
     // 社群互動
-    allowComments: z.boolean().default(true),       // 允許留言
-    showComments: z.boolean().default(true),        // 顯示留言區
+    allowComments: z.boolean().default(true),
+    showComments: z.boolean().default(true),
     
     // 排程發佈
-    publishDate: z.string().optional(),             // 預定發佈時間（用於排程）
-    updateDate: z.string().optional(),              // 更新日期
-    readingTime: z.number().optional(),             // 閱讀時間（分鐘）
+    publishDate: z.string().optional(),
+    updateDate: z.string().optional(),
+    readingTime: z.number().optional(),
   }),
 });
 

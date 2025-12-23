@@ -1,20 +1,46 @@
 ---
 interface Props {
   title: string;
-  tag: 'news' | 'guide' | 'vtuber' | 'review';
+  tag: string;
   tagName: string;
   date: string;
+  time?: string;
   author?: string;
   slug: string;
   image?: string;
 }
 
-const { title, tag, tagName, date, author = '玩報編輯部', slug, image } = Astro.props;
+const { title, tag, tagName, date, time, author = '玩報編輯部', slug, image } = Astro.props;
+
+// 格式化日期時間顯示
+function formatDateTime(dateStr: string, timeStr?: string): string {
+  // 檢查 date 是否已包含時間 (格式: 2025-12-23T14:30 或 2025-12-23 14:30)
+  let displayDate = dateStr;
+  let displayTime = timeStr;
+  
+  if (dateStr.includes('T')) {
+    const [d, t] = dateStr.split('T');
+    displayDate = d;
+    displayTime = displayTime || t;
+  } else if (dateStr.includes(' ') && dateStr.length > 10) {
+    const [d, t] = dateStr.split(' ');
+    displayDate = d;
+    displayTime = displayTime || t;
+  }
+  
+  // 如果有時間，顯示日期+時間
+  if (displayTime) {
+    return `${displayDate} ${displayTime}`;
+  }
+  return displayDate;
+}
+
+const displayDateTime = formatDateTime(date, time);
 ---
 
 <article class="article-card">
   {image ? (
-    <img src={image} alt={title} class="article-card__image" />
+    <img src={image} alt={title} class="article-card__image" loading="lazy" />
   ) : (
     <div class="article-card__image"></div>
   )}
@@ -23,6 +49,25 @@ const { title, tag, tagName, date, author = '玩報編輯部', slug, image } = A
     <h3 class="article-card__title">
       <a href={`/articles/${slug}`}>{title}</a>
     </h3>
-    <p class="article-card__meta">{date} | {author}</p>
+    <p class="article-card__meta">
+      <span class="meta-date">📅 {displayDateTime}</span>
+      <span class="meta-author">✍️ {author}</span>
+    </p>
   </div>
 </article>
+
+<style>
+  .article-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+  }
+  
+  .meta-date, .meta-author {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+</style>

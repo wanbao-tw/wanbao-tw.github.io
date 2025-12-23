@@ -14,6 +14,29 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { Content } = await article.render();
 
+// 格式化日期時間
+function formatDateTime(dateStr: string, timeStr?: string): string {
+  let displayDate = dateStr;
+  let displayTime = timeStr;
+  
+  if (dateStr.includes('T')) {
+    const [d, t] = dateStr.split('T');
+    displayDate = d;
+    displayTime = displayTime || t;
+  } else if (dateStr.includes(' ') && dateStr.length > 10) {
+    const [d, t] = dateStr.split(' ');
+    displayDate = d;
+    displayTime = displayTime || t;
+  }
+  
+  if (displayTime) {
+    return `${displayDate} ${displayTime}`;
+  }
+  return displayDate;
+}
+
+const displayDateTime = formatDateTime(article.data.date, article.data.time);
+
 // 取得相關文章（同標籤的其他文章）
 const allArticles = await getCollection('articles', ({ data }) => !data.draft);
 const relatedArticles = allArticles
@@ -53,7 +76,7 @@ const articleKeywords = [
       </div>
       <h1>{article.data.title}</h1>
       <div class="article-meta">
-        <span>📅 {article.data.date}</span>
+        <span>📅 {displayDateTime}</span>
         <span>✍️ {article.data.author}</span>
         {article.data.readingTime && <span>⏱️ 約 {article.data.readingTime} 分鐘</span>}
         {article.data.updateDate && <span>🔄 更新於 {article.data.updateDate}</span>}
